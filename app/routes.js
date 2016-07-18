@@ -13,8 +13,8 @@ const loadModule = (cb) => (componentModule) => {
 };
 
 export default function createRoutes() {
-	// Create reusable async injectors using getAsyncInjectors factory
-	// const { injectReducer, injectSagas } = getAsyncInjectors(store);
+// Create reusable async injectors using getAsyncInjectors factory
+// const { injectReducer, injectSagas } = getAsyncInjectors(store);
 
 	return [
 		{
@@ -28,7 +28,27 @@ export default function createRoutes() {
 				const renderRoute = loadModule(cb);
 
 				importModules.then(([component]) => {
-          console.log(component);
+					console.log(component);
+					renderRoute(component);
+				});
+
+				importModules.catch(errorLoading);
+			},
+		}, {
+			path: '/admin',
+			name: 'adminPanel',
+			getComponent(nextState, cb) {
+				const importModules = Promise.all([
+					System.import('containers/AdminPanel/reducer'),
+					System.import('containers/AdminPanel/sagas'),
+					System.import('containers/AdminPanel'),
+				]);
+
+				const renderRoute = loadModule(cb);
+
+				importModules.then(([reducer, sagas, component]) => {
+					injectReducer('adminPanel', reducer.default);
+					injectSagas(sagas.default);
 					renderRoute(component);
 				});
 
@@ -36,11 +56,12 @@ export default function createRoutes() {
 			},
 		}, {
 			path: '*',
+
 			name: 'notfound',
 			getComponent(nextState, cb) {
 				System.import('containers/NotFoundPage')
-					.then(loadModule(cb))
-					.catch(errorLoading);
+				.then(loadModule(cb))
+				.catch(errorLoading);
 			},
 		},
 	];
