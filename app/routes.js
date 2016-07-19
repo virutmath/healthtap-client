@@ -14,7 +14,7 @@ const loadModule = (cb) => (componentModule) => {
 
 export default function createRoutes() {
 // Create reusable async injectors using getAsyncInjectors factory
-// const { injectReducer, injectSagas } = getAsyncInjectors(store);
+// 	const {injectReducer, injectSagas} = getAsyncInjectors(store);
 
 	return [
 		{
@@ -28,7 +28,7 @@ export default function createRoutes() {
 				const renderRoute = loadModule(cb);
 
 				importModules.then(([component]) => {
-					console.log(component);
+					//console.log(component);
 					renderRoute(component);
 				});
 
@@ -49,6 +49,7 @@ export default function createRoutes() {
 				importModules.then(([reducer, sagas, component]) => {
 					injectReducer('adminPanel', reducer.default);
 					injectSagas(sagas.default);
+					console.log(component);
 					renderRoute(component);
 				});
 
@@ -60,8 +61,8 @@ export default function createRoutes() {
 			name: 'notfound',
 			getComponent(nextState, cb) {
 				System.import('containers/NotFoundPage')
-				.then(loadModule(cb))
-				.catch(errorLoading);
+					.then(loadModule(cb))
+					.catch(errorLoading);
 			},
 		},
 	];

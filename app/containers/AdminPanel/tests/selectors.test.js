@@ -1,7 +1,7 @@
 import {
-  selectAdminPanel,
+	selectAdminPanel,
 } from '../selectors';
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
 import expect from 'expect';
 
 const selector = selectAdminPanel();

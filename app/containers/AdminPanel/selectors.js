@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
 /**
  * Direct selector to the adminPanel state domain
@@ -15,11 +15,11 @@ const selectAdminPanelDomain = () => state => state.get('adminPanel');
  */
 
 const selectAdminPanel = () => createSelector(
-  selectAdminPanelDomain(),
-  (substate) => substate.toJS()
+	selectAdminPanelDomain(),
+	(substate) => substate.toJS()
 );
 
 export default selectAdminPanel;
 export {
-  selectAdminPanelDomain,
+	selectAdminPanelDomain,
 };
