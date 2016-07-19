@@ -12,12 +12,9 @@ import Helmet from 'react-helmet';
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css';
 
-
-import styles from './styles.css';
-
 function App(props) {
 	return (
-		<div className={styles.wrapper}>
+		<div className="">
 			<Helmet
 				titleTemplate="%s - React.js Boilerplate"
 				defaultTitle="React.js Boilerplate"
