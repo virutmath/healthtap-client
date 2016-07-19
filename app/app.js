@@ -14,7 +14,8 @@ import '!file?name=[name].[ext]!./manifest.json';
 import 'file?name=[name].[ext]!./.htaccess';
 
 //load bootstrap css
-import 'file?name=[name].[ext]!./bower_components/bootstrap/dist/css/bootstrap.min.css';
+import '!!file?name=[name].[ext]!./bower_components/bootstrap/dist/css/bootstrap.min.css';
+import '!!file?name=[name].[ext]!./assets/admin/css/AdminLTE.min.css';
 
 // Import all the third party stuff
 import React from 'react';

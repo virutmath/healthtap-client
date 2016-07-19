@@ -43,16 +43,35 @@ export default function createRoutes(store) {
 			name: 'features',
 			getComponent(nextState, cb) {
 				System.import('containers/FeaturePage')
-					.then(loadModule(cb))
-					.catch(errorLoading);
+				.then(loadModule(cb))
+				.catch(errorLoading);
+			},
+		}, {
+			path: '/login',
+			name: 'loginPage',
+			getComponent(nextState, cb) {
+				const importModules = Promise.all([
+					System.import('containers/LoginPage/reducer'),
+					System.import('containers/LoginPage'),
+				]);
+
+				const renderRoute = loadModule(cb);
+
+				importModules.then(([reducer, component]) => {
+					injectReducer('loginPage', reducer.default);
+					renderRoute(component);
+				});
+
+				importModules.catch(errorLoading);
 			},
 		}, {
 			path: '*',
+
 			name: 'notfound',
 			getComponent(nextState, cb) {
 				System.import('containers/NotFoundPage')
-					.then(loadModule(cb))
-					.catch(errorLoading);
+				.then(loadModule(cb))
+				.catch(errorLoading);
 			},
 		},
 	];
