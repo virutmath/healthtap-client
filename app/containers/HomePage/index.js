@@ -5,24 +5,24 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import {connect} from 'react-redux';
+import {push} from 'react-router-redux';
 import Helmet from 'react-helmet';
 
-import { createStructuredSelector } from 'reselect';
+import {createStructuredSelector} from 'reselect';
 
 import {
-  selectRepos,
-  selectLoading,
-  selectError,
+	selectRepos,
+	selectLoading,
+	selectError,
 } from 'containers/App/selectors';
 
 import {
-  selectUsername,
+	selectUsername,
 } from './selectors';
 
-import { changeUsername } from './actions';
-import { loadRepos } from '../App/actions';
+import {changeUsername} from './actions';
+import {loadRepos} from '../App/actions';
 
 import RepoListItem from 'containers/RepoListItem';
 import Button from 'components/Button';
@@ -34,120 +34,122 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import styles from './styles.css';
 
 export class HomePage extends React.Component {
-  /**
-   * when initial state username is not null, submit the form to load repos
-   */
-  componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
-  }
-  /**
-   * Changes the route
-   *
-   * @param  {string} route The route we want to go to
-   */
-  openRoute = (route) => {
-    this.props.changeRoute(route);
-  };
+	/**
+	 * when initial state username is not null, submit the form to load repos
+	 */
+	componentDidMount() {
+		if (this.props.username && this.props.username.trim().length > 0) {
+			this.props.onSubmitForm();
+		}
+	}
 
-  /**
-   * Changed route to '/features'
-   */
-  openFeaturesPage = () => {
-    this.openRoute('/features');
-  };
+	/**
+	 * Changes the route
+	 *
+	 * @param  {string} route The route we want to go to
+	 */
+	openRoute = (route) => {
+		this.props.changeRoute(route);
+	};
 
-  render() {
-    let mainContent = null;
+	/**
+	 * Changed route to '/features'
+	 */
+	openFeaturesPage = () => {
+		this.openRoute('/features');
+	};
 
-    // Show a loading indicator when we're loading
-    if (this.props.loading) {
-      mainContent = (<List component={LoadingIndicator} />);
+	render() {
+		let mainContent = null;
 
-    // Show an error if there is one
-    } else if (this.props.error !== false) {
-      const ErrorComponent = () => (
-        <ListItem item={'Something went wrong, please try again!'} />
-      );
-      mainContent = (<List component={ErrorComponent} />);
+		// Show a loading indicator when we're loading
+		if (this.props.loading) {
+			mainContent = (<List component={LoadingIndicator}/>);
 
-    // If we're not loading, don't have an error and there are repos, show the repos
-    } else if (this.props.repos !== false) {
-      mainContent = (<List items={this.props.repos} component={RepoListItem} />);
-    }
+			// Show an error if there is one
+		} else if (this.props.error !== false) {
+			const ErrorComponent = () => (
+				<ListItem item={'Something went wrong, please try again!'}/>
+			);
+			mainContent = (<List component={ErrorComponent}/>);
 
-    return (
-      <article>
-        <Helmet
-          title="Home Page"
-          meta={[
+			// If we're not loading, don't have an error and there are repos, show the repos
+		} else if (this.props.repos !== false) {
+			mainContent = (<List items={this.props.repos} component={RepoListItem}/>);
+		}
+
+		return (
+			<article>
+				<Helmet
+					title="Home Page"
+					meta={[
             { name: 'description', content: 'A React.js Boilerplate application homepage' },
           ]}
-        />
-        <div>
-          <section className={`${styles.textSection} ${styles.centered}`}>
-            <H2>Start your next react project in seconds</H2>
-            <p>A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices</p>
-          </section>
-          <section className={styles.textSection}>
-            <H2>Try me!</H2>
-            <form className={styles.usernameForm} onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">Show Github repositories by
-                <span className={styles.atPrefix}>@</span>
-                <input
-                  id="username"
-                  className={styles.input}
-                  type="text"
-                  placeholder="mxstbr"
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </label>
-            </form>
-            {mainContent}
-          </section>
-          <Button handleRoute={this.openFeaturesPage}>Features</Button>
-        </div>
-      </article>
-    );
-  }
+				/>
+				<div>
+					<section className={`${styles.textSection} ${styles.centered}`}>
+						<H2>Start your next react project in seconds</H2>
+						<p>A highly scalable, offline-first foundation with the best DX and a focus on performance and
+							best practices</p>
+					</section>
+					<section className={styles.textSection}>
+						<H2>Try me!</H2>
+						<form className={styles.usernameForm} onSubmit={this.props.onSubmitForm}>
+							<label htmlFor="username">Show Github repositories by
+								<span className={styles.atPrefix}>@</span>
+								<input
+									id="username"
+									className={styles.input}
+									type="text"
+									placeholder="mxstbr"
+									value={this.props.username}
+									onChange={this.props.onChangeUsername}
+								/>
+							</label>
+						</form>
+						{mainContent}
+					</section>
+					<Button handleRoute={this.openFeaturesPage}>Features</Button>
+				</div>
+			</article>
+		);
+	}
 }
 
 HomePage.propTypes = {
-  changeRoute: React.PropTypes.func,
-  loading: React.PropTypes.bool,
-  error: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
-  ]),
-  repos: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.bool,
-  ]),
-  onSubmitForm: React.PropTypes.func,
-  username: React.PropTypes.string,
-  onChangeUsername: React.PropTypes.func,
+	changeRoute: React.PropTypes.func,
+	loading: React.PropTypes.bool,
+	error: React.PropTypes.oneOfType([
+		React.PropTypes.object,
+		React.PropTypes.bool,
+	]),
+	repos: React.PropTypes.oneOfType([
+		React.PropTypes.array,
+		React.PropTypes.bool,
+	]),
+	onSubmitForm: React.PropTypes.func,
+	username: React.PropTypes.string,
+	onChangeUsername: React.PropTypes.func,
 };
 
 function mapDispatchToProps(dispatch) {
-  return {
-    onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
-    changeRoute: (url) => dispatch(push(url)),
-    onSubmitForm: (evt) => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
-    },
+	return {
+		onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
+		changeRoute: (url) => dispatch(push(url)),
+		onSubmitForm: (evt) => {
+			if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+			dispatch(loadRepos());
+		},
 
-    dispatch,
-  };
+		dispatch,
+	};
 }
 
 const mapStateToProps = createStructuredSelector({
-  repos: selectRepos(),
-  username: selectUsername(),
-  loading: selectLoading(),
-  error: selectError(),
+	repos: selectRepos(),
+	username: selectUsername(),
+	loading: selectLoading(),
+	error: selectError(),
 });
 
 // Wrap the component to inject dispatch and state into it

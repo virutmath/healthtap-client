@@ -1,42 +1,42 @@
 .textSection {
-  margin: 3em auto;
+	margin: 3em auto;
 }
 
 .textSection:first-child {
-  margin-top: 0;
+	margin-top: 0;
 }
 
 .centered {
-  text-align: center;
+	text-align: center;
 }
 
 p,
 label {
-  font-family: Georgia, Times, 'Times New Roman', serif;
-  line-height: 1.5em;
+	font-family: Georgia, Times, 'Times New Roman', serif;
+	line-height: 1.5em;
 }
 
 .link {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .code {
-  font-size: 0.75em;
-  background-color: $very-light-grey;
-  padding: 0.125em 0.5em;
-  border-radius: 1px;
+	font-size: 0.75em;
+	background-color: $ very-light-grey;
+	padding: 0.125em 0.5em;
+	border-radius: 1px;
 }
 
 .usernameForm {
-  margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 .input {
-  outline: none;
-  border-bottom: 1px dotted #999;
+	outline: none;
+	border-bottom: 1px dotted #999;
 }
 
 .atPrefix {
-  color: black;
-  margin-left: 0.4em;
+	color: black;
+	margin-left: 0.4em;
 }
